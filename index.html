@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Estado de Sondas</title>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    .ok { color: green; }
+    .bad { color: red; }
+  </style>
+</head>
+<body>
+  <h1>Estado de sondas</h1>
+  <pre id="out">Cargando...</pre>
+
+  <script>
+    async function load() {
+      const r = await fetch("/api/probes-status", { method: "POST" });
+      const data = await r.json();
+      document.getElementById("out").textContent =
+        JSON.stringify(data, null, 2);
+    }
+
+    load();
+    setInterval(load, 30_000);
+  </script>
+</body>
+</html>
